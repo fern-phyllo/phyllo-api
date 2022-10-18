@@ -1,2 +1,2 @@
-name: api
-auth: bearer
+name: connect-api
+auth: basic

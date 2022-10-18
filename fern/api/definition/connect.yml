@@ -1,0 +1,296 @@
+services:
+  http:
+    ConnectService:
+      auth: true
+      base-path: /v1
+      endpoints:
+        getWorkPlatform:
+          path: /work-platforms/{id}
+          method: GET
+          path-parameters:
+            id: WorkPlatformId
+          response: WorkPlatform
+
+        getAllWorkPlatforms:
+          path: /work-platforms
+          method: GET
+          query-parameters:
+            limit: optional<integer>
+            name: optional<string>
+            offset: optional<integer>
+          response: AllWorkPlatformsResponse
+
+        getUser:
+          path: /users/{id}
+          method: GET
+          path-parameters:
+            id: UserId
+          response: User
+
+        getAllUsers:
+          path: /users
+          method: GET
+          query-parameters:
+            limit: optional<integer>
+            offset: optional<integer>
+          response: AllUsersResponse
+
+        createUser:
+          path: /users
+          method: POST
+          request: CreateUserRequest
+          response: User
+
+        getUserByExernalId:
+          path: /users/external_id/{external_id}
+          method: GET
+          path-parameters:
+            external_id: ExternalId
+          response: User
+
+        createSDKToken:
+          path: /sdk-tokens
+          method: POST
+          request: SDKTokenRequest
+          response: SDKTokenResponse
+
+        getAccount:
+          path: /accounts/{id}
+          method: GET
+          path-parameters:
+            id: AccountId
+          response: Account
+
+        getAllAccounts:
+          path: /accounts
+          method: GET
+          query-parameters:
+            limit: optional<integer>
+            offset: optional<integer>
+            user_id: optional<UserId>
+            work_platform_id: optional<WorkPlatformId>
+          response: AllAccountsResponse
+
+        disconnectAccount:
+          path: /accounts/{id}/disconnect
+          method: POST
+          path-parameters:
+            id: AccountId
+          response: DisconnectAccountResponse
+
+types:
+  WorkPlatformId: string 
+  RequestId: string 
+  UserId: string 
+  ExternalId: string
+  AccountId: string
+
+  WorkPlatformAttribute:
+    properties:
+      id: WorkPlatformId
+      name: string
+      logo_url: string
+
+  WorkPlatform:
+    extends: WorkPlatformAttribute
+    properties:
+      created_at: datetime
+      updated_at: datetime
+      category: WorkPlatformCategory
+      status: Status
+      url: string
+      products: Products
+
+  WorkPlatformCategory:
+    enum:
+      - MEDIA
+      - EDUCATION
+      - SOCIAL
+      - ENTERTAINMENT
+      - LIFESTYLE
+      - BUSINESS
+
+  Status:
+    enum:
+      - ACTIVE
+      - INACTIVE
+
+  Products:
+    properties:
+      identity: IdentityProduct
+      engagement: EngagementProduct
+      income: IncomeProduct
+      switch: SwitchProduct
+
+  Audience:
+    properties:
+      is_supported: boolean
+
+  IdentityProduct:
+    properties:
+      is_supported: boolean
+      audience: Audience
+
+  EngagementProduct:
+    properties:
+      is_supported: boolean
+      audience: Audience
+
+  IncomeProduct:
+    properties:
+      is_supported: boolean
+
+  SwitchProduct:
+    properties:
+      is_supported: boolean
+
+  AllWorkPlatformsResponse:
+    properties:
+      data: list<WorkPlatform>
+      metadata: Metadata
+
+  Metadata:
+    properties:
+      offset: integer
+      limit: integer
+      from_date:
+        type: optional<string>
+        docs: YYYY-MM-DD
+      to_date:
+        type: optional<string>
+        docs: YYYY-MM-DD
+
+  UserAttribute:
+    properties:
+      id: UserId
+      name: string
+
+  User:
+    extends: UserAttribute
+    properties:
+      external_id: ExternalId
+      created_at: datetime
+      updated_at: datetime
+      status: Status
+
+  AllUsersResponse:
+    properties:
+      data: list<User>
+      metadata: Metadata
+
+  CreateUserRequest:
+    properties:
+      name: string
+      external_id: ExternalId
+
+  SDKTokenRequest:
+    properties:
+      user_id: UserId
+      products: set<PhylloProducts>
+
+  PhylloProducts:
+    enum:
+      - IDENTITY
+      - ENGAGEMENT
+      - INCOME
+      - name: ENGAGEMENT_AUDIENCE
+        value: ENGAGEMENT.AUDIENCE
+      - name: IDENTITY_AUDIENCE
+        value: IDENTITY.AUDIENCE
+
+  SDKTokenResponse:
+    properties:
+      sdk_token: string
+      expires_at: datetime
+
+  Account:
+    properties:
+      id: AccountId
+      created_at: datetime
+      updated_at: datetime
+      user: UserAttribute
+      work_platform: WorkPlatformAttribute
+      platform_username: optional<string>
+      profile_pic_url: optional<string>
+      status: AccountStatus
+      platform_profile_name: optional<string>
+      platform_profile_id: optional<string>
+      platform_profile_published_at: optional<datetime>
+      data: AccountData
+
+  AccountData:
+    properties:
+      identity: optional<IdentityData>
+      engagement: optional<EngagementData>
+      income: optional<IncomeData>
+
+  IdentityData:
+    properties:
+      status: DataStatus
+      last_sync_at: optional<datetime>
+      monitor_type: MonitoringType # monitoring_type in docs, but monitor_type over the wire
+      audience: optional<IdentityAudienceData>
+
+  DataStatus:
+    enum:
+      - SYNCED
+      - IN_PROGRESS
+      - NOT_SUPPORTED
+      - NOT_SYNCED
+      - PARTIAL_SYNCED
+
+  MonitoringType:
+    enum:
+      - STANDARD
+      - ON_DEMAND
+
+  IdentityAudienceData:
+    properties:
+      status: DataStatus
+      last_sync_at: optional<datetime>
+      monitor_type: MonitoringType # monitoring_type in docs, but monitor_type over the wire
+
+  EngagementData:
+    properties:
+      status: DataStatus
+      last_sync_at: optional<datetime>
+      refresh_since: optional<datetime>
+      data_available_from: optional<datetime>
+      monitor_type: MonitoringType # monitoring_type in docs, but monitor_type over the wire
+      audience: optional<EngagementAudienceData>
+
+  EngagementAudienceData:
+    properties:
+      status: DataStatus
+      last_sync_at: optional<datetime>
+      refresh_since: optional<datetime>
+      data_available_from: optional<datetime>
+      monitor_type: MonitoringType # monitoring_type in docs, but monitor_type over the wire
+
+  IncomeData:
+    properties:
+      status: DataStatus
+      last_sync_at: optional<datetime>
+      refresh_since: optional<datetime>
+      data_available_from: optional<datetime>
+      monitor_type: MonitoringType
+
+  AllAccountsResponse:
+    properties:
+      data: list<Account>
+      metadata: Metadata
+
+  DisconnectAccountResponse:
+    properties:
+      id: AccountId
+      created_at: datetime
+      updated_at: datetime
+      user: UserAttribute
+      work_platform: WorkPlatformAttribute
+      status: AccountStatus
+
+  AccountStatus:
+    enum:
+      - CONNECTED
+      - NOT_CONNECTED
+      - SESSION_EXPIRED
