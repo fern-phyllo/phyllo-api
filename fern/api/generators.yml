@@ -1,0 +1,9 @@
+release:
+  - name: fernapi/fern-typescript-sdk
+    version: 0.0.215
+    publishing:
+      npm:
+        package-name: '@fern-api/{COMPANY}'
+        token: ${FERN_NPM_TOKEN}
+    github:
+      repository: fern-{COMPANY}/{COMPANY}-node
