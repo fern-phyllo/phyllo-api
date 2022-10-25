@@ -1,9 +1,9 @@
 name: connect-api
 auth: basic
-# environments:
-# Production:
-#     url: https://api.getphyllo.com
-#     docs: Use Production mode to go live with your integration. On production, your users will need to use their real credentials to log in to the diferent platforms. API endpoints return real data and updates are made to accounts. Note that all account connections and data syncing via APIs in this mode are billable.
-#   Sandbox: 
-#     url: https://api.sandbox.getphyllo.com
-#     docs: Use Sandbox mode to build and test your integration. In this mode, you can use any random credentials to log into platforms. All API endpoints will return mocked data and no changes are made to any account.
+environments:
+Production:
+    url: https://api.getphyllo.com
+    docs: Use Production mode to go live with your integration. On production, your users will need to use their real credentials to log in to the diferent platforms. API endpoints return real data and updates are made to accounts. Note that all account connections and data syncing via APIs in this mode are billable.
+  Sandbox: 
+    url: https://api.sandbox.getphyllo.com
+    docs: Use Sandbox mode to build and test your integration. In this mode, you can use any random credentials to log into platforms. All API endpoints will return mocked data and no changes are made to any account.
