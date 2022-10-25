@@ -32,6 +32,7 @@ jobs:
       - name: Release SDKs
         env:
           FERN_NPM_TOKEN: ${{ secrets.FERN_NPM_TOKEN }}
+          FERN_MAVEN_USERNAME: ${{ secrets.FERN_MAVEN_USERNAME }}
           FERN_MAVEN_TOKEN: ${{ secrets.FERN_MAVEN_TOKEN }}
         run: fern release ${{ github.ref_name }} --log-level debug
         
