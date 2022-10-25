@@ -7,3 +7,4 @@ environments:
   Sandbox: 
     url: https://api.sandbox.getphyllo.com
     docs: Use Sandbox mode to build and test your integration. In this mode, you can use any random credentials to log into platforms. All API endpoints will return mocked data and no changes are made to any account.
+default-environment: Production
