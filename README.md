@@ -1,8 +1,10 @@
 # Phyllo API
 
-Tagging a release on this repository will:
+Tagging a release on this repository will update the :
 
-- Update the [TypeScript SDK Github Repo](https://github.com/fern-api/phyllo-node)
+- [TypeScript SDK Github Repo](https://github.com/fern-phyllo/phyllo-node)
+- [Java SDK Github Repo](https://github.com/fern-phyllo/phyllo-node)
+- [OpenAPI description Github Repo](https://github.com/fern-phyllo/phyllo-openapi)
 - _More SDKs to come..._
 
 ## What is in this repository?
