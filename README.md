@@ -5,6 +5,7 @@ Tagging a release on this repository will update the:
 - [TypeScript SDK Github Repo](https://github.com/fern-phyllo/phyllo-node)
 - [Java SDK Github Repo](https://github.com/fern-phyllo/phyllo-java)
 - [OpenAPI description Github repo](https://github.com/fern-phyllo/phyllo-openapi)
+- [Postman collection Github repo](https://github.com/fern-phyllo/phyllo-postman)
 - _More SDKs to come..._
 
 ## What is in this repository?
