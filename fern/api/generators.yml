@@ -1,14 +1,14 @@
 release:
   - name: fernapi/fern-typescript-sdk
-    version: 0.0.215
+    version: 0.0.227
     publishing:
       npm:
-        package-name: '@fern-api/phyllo'
+        package-name: "@fern-api/phyllo"
         token: ${FERN_NPM_TOKEN}
     github:
       repository: fern-phyllo/phyllo-node
   - name: fernapi/fern-java-sdk
-    version: 0.0.121
+    version: 0.0.122
     publishing:
       maven:
         coordinate: io.github.fern-api:phyllo
@@ -16,3 +16,15 @@ release:
         password: ${FERN_MAVEN_TOKEN}
     github:
       repository: fern-phyllo/phyllo-java
+  - name: fernapi/fern-openapi
+    version: 0.0.10
+    github:
+      repository: fern-phyllo/phyllo-openapi
+  - name: fernapi/fern-postman
+    version: 0.0.25
+    publishing:
+      postman:
+        api-key: ${FERN_POSTMAN_API_KEY}
+        workspace-id: ${FERN_POSTMAN_WORKSPACE_ID}
+    github:
+      repository: fern-phyllo/phyllo-postman
